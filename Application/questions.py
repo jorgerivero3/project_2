@@ -1,3 +1,12 @@
+
+'''
+#################
+
+Trivia Questions API should be implemented here
+
+#############
+'''
+
 class Question:
 	def __init__(self, question):
 		self.category = CATEGORIES[question[0][0]]
