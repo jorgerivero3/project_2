@@ -1,6 +1,6 @@
 from flask import render_template, url_for, flash, redirect, request
 from Application import application, db, bcrypt, mail
-from Application.forms import RegistrationForm, LoginForm, RequestResetForm, ResetPasswordForm, UpdateInfo, GameInput
+from Application.forms import RegistrationForm, LoginForm, RequestResetForm, ResetPasswordForm, UpdateInfo
 from Application.models import User
 from flask_login import login_user, current_user, logout_user, login_required
 import os
