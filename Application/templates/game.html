@@ -3,6 +3,7 @@
 
 <div>
 	{% for i in range(questions|length) %}
+	<span id="{i}|string" hidden>
 		{{ questions[i]['question']|safe }}<br>
 		{% for j in range(questions[i]['incorrect_answers']|length) %}
 			{% if questions[i]['incorrect_answers'][j] == questions[i]["correct_answer"] %}
@@ -13,6 +14,7 @@
 		{% endfor %}
 		<br>
 	{% endfor %}
+	</span>
 </div>
 
 {% endblock content %}
@@ -20,9 +22,14 @@
 <script type="text/javascript">
 	<!--
 	var count = 0;
+	var ind = 0;
+	document.getElementById(ind.toString()).style.visibility = "visible"
 	function correct(){
 		count++;
 		window.alert(count + " correct wooo")
+		document.getElementById(ind.toString()).style.visibility = "hidden"
+		ind++
+		document.getElementById(ind.toString()).style.visibility = "visible"
 	}
 	function incorrect(){
 		window.alert("you wrong")
