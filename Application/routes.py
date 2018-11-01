@@ -105,10 +105,13 @@ def reset_token(token):
 	return render_template('reset_token.html', title='Reset Password', form=form)
 
 #Game code
-@application.route("/game")
+@application.route("/game", methods=['GET', 'POST'])
+#@login_required
 def game():
 	# Retrieves Questions from the API
-	questions = get_questions()
+	questions = get_questions() #array of dictionaries
+	return render_template('game.html', title='Quiz', questions=questions)
+	'''
 	count = 0
 	wrong = False
 	# Game will continue to go until a wrong answer is given
@@ -124,3 +127,4 @@ def game():
 		choices = random.shuffle(incorrect)
 		render_template('game.html', title="Trivia Game")
 		count += 1
+		'''
