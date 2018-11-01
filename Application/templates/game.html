@@ -6,9 +6,9 @@
 		{{ questions[i]['question']|safe }}<br>
 		{% for j in range(questions[i]['incorrect_answers']|length) %}
 			{% if questions[i]['incorrect_answers'][j] == questions[i]["correct_answer"] %}
-				<button onclick="correct();">{{ questions[i]['incorrect_answers'][j] }}</button>
+				<button onclick="correct();">{{ questions[i]['incorrect_answers'][j]|safe }}</button>
 			{% else %}
-				<button onclick="incorrect();">{{ questions[i]['incorrect_answers'][j] }}</button>
+				<button onclick="incorrect();">{{ questions[i]['incorrect_answers'][j]|safe }}</button>
 			{% endif %}
 		{% endfor %}
 		<br>
