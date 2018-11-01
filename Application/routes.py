@@ -132,3 +132,7 @@ def game(number, correct):
 		render_template('game.html', title="Trivia Game")
 		count += 1
 		'''
+
+@application.route("/select")
+def select():
+	return render_template('select.html')
