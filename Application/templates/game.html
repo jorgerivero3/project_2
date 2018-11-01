@@ -30,7 +30,7 @@
 		ind++;
 		if (document.getElementById(ind.toString()) == null){
 			if (last == -1){
-				window.location = window.location.href + '/' + ind.toString();
+				pass();
 			}
 			else{
 				check(last, ind);
@@ -42,7 +42,7 @@
 	}
 	function incorrect(){
 		if (last == -1){
-			window.location = window.location.href + '/' + ind.toString();
+			pass();
 		}
 		else{
 			check(last, ind);
@@ -58,6 +58,10 @@
 		else{
 			window.alert('Player 2 Wins!')
 		}
+	}
+	function pass(){
+		window.alert("Pass device to Player 2")
+			window.location = window.location.href + '/' + ind.toString();
 	}
 
 	// -->
