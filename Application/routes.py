@@ -110,6 +110,9 @@ def reset_token(token):
 def game():
 	# Retrieves Questions from the API
 	questions = get_questions() #array of dictionaries
+	for question in questions:
+		question['incorrect_answers'].append(question['correct_answer'])
+		random.shuffle(question['incorrect_answers'])
 	return render_template('game.html', title='Quiz', questions=questions)
 	'''
 	count = 0

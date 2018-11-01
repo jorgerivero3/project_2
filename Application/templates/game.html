@@ -4,10 +4,20 @@
 <div>
 	{% for i in range(questions|length) %}
 		{{ questions[i]['question']|safe }}<br>
-		{% for j in range(questions[i]['incorrect_answers']|length) %}
-			<button>{{ questions[i]['incorrect_answers'][j] }}</button>
-		{% endfor %}
+		{% if questions[i]['type'] == 'multiple' %}
+			{% for j in range(questions[i]['incorrect_answers']|length) %}
+				{% if questions[i]['incorrect_answers'][j] == questions[i]["correct_answer"] %}
+					<button onclick="correct();">{{ questions[i]['incorrect_answers'][j] }}</button>
+				{% else %}
+					<button onclick="incorrect();">{{ questions[i]['incorrect_answers'][j] }}</button>
+				{% endif %}
+			{% endfor %}
+			<br>
+		{% else %}
+			<button>True</button>
+			<button>False</button>
 		<br>
+		{% endif %}
 	{% endfor %}
 
 </div>
@@ -17,13 +27,12 @@
 <script type="text/javascript">
 	<!--
 	var correct = 0;
-	function check(){
-		if true{
-			correct++;
-		}
-		else{
-			break
-		}
+	function correct(){
+		correct++
+		window.alert(correct + "correct")
+	}
+	function incorrect(){
+		window.alert("you wrong")
 	}
 	// -->
 </script>
