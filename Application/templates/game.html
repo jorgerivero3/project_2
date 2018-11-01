@@ -28,7 +28,7 @@
 		ind++;
 		if (document.getElementById(ind.toString()) == null){
 			window.alert("you got all right wtf")
-			//window.location = "http://127.0.0.1:5000/game/" +
+			//window.location = "http://127.0.0.1:5000/game/" + ind.toString()
 		}
 		else{
 			document.getElementById(ind.toString()).removeAttribute("hidden");
@@ -36,6 +36,7 @@
 	}
 	function incorrect(){
 		window.alert('you wrong')
+		//window.location = "http://127.0.0.1:5000/game/" + ind.toString()
 	}
 	// -->
 </script>
