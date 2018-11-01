@@ -1,0 +1,65 @@
+@font-face {
+    font-family: 'CretanHieroglyphsRegular';
+    src: url(../fonts/CretanHieroglyphsRegular.ttf);
+}
+h1 {
+    font-family: 'CretanHieroglyphsRegular'; 
+    font-weight: bold;
+    font-style: normal; 
+    size: 500px;
+    text-align: center;
+ }
+ p {
+    font-family: 'HankenBook'; 
+    font-weight: normal; 
+    font-style: normal; 
+ }
+ body {
+     background-image: url(bg.jpg);
+     background-position: center;
+ }
+ .myButton {
+	-moz-box-shadow: 0px 1px 0px 0px #fff6af;
+	-webkit-box-shadow: 0px 1px 0px 0px #fff6af;
+	box-shadow: 0px 1px 0px 0px #fff6af;
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #ffeb66), color-stop(1, #ffab23));
+	background:-moz-linear-gradient(top, #ffeb66 5%, #ffab23 100%);
+	background:-webkit-linear-gradient(top, #ffeb66 5%, #ffab23 100%);
+	background:-o-linear-gradient(top, #ffeb66 5%, #ffab23 100%);
+	background:-ms-linear-gradient(top, #ffeb66 5%, #ffab23 100%);
+	background:linear-gradient(to bottom, #ffeb66 5%, #ffab23 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffeb66', endColorstr='#ffab23',GradientType=0);
+	background-color:#ffeb66;
+	-moz-border-radius:3px;
+	-webkit-border-radius:3px;
+	border-radius:3px;
+	display:inline-block;
+	cursor:pointer;
+	color:#333333;
+	font-family:Arial;
+	font-size:15px;
+	font-weight:bold;
+	padding:6px 24px;
+	text-decoration:none;
+    text-shadow:0px 1px 0px #ffee66;
+    width:80px;
+    font-family: 'HankenBook'; 
+    font-weight: normal; 
+    font-style: normal; 
+    transition: 1s ease;
+}
+.myButton:hover {
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #ffab23), color-stop(1, #ffeb66));
+	background:-moz-linear-gradient(top, #ffab23 5%, #ffeb66 100%);
+	background:-webkit-linear-gradient(top, #ffab23 5%, #ffeb66 100%);
+	background:-o-linear-gradient(top, #ffab23 5%, #ffeb66 100%);
+	background:-ms-linear-gradient(top, #ffab23 5%, #ffeb66 100%);
+	background:linear-gradient(to bottom, #ffab23 5%, #ffeb66 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffab23', endColorstr='#ffeb66',GradientType=0);
+	background-color:#ffab23;
+}
+.myButton:active {
+	position:relative;
+	top:1px;
+}
+
