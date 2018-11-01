@@ -105,11 +105,11 @@ def reset_token(token):
 	return render_template('reset_token.html', title='Reset Password', form=form)
 
 #Game code
-@application.route("/game", methods=['GET', 'POST'])
+@application.route("/game/<number>", methods=['GET', 'POST'])
 #@login_required
-def game():
+def game(number):
 	# Retrieves Questions from the API
-	questions = get_questions() #array of dictionaries
+	questions = get_questions(number) #array of dictionaries
 	for question in questions:
 		question['incorrect_answers'].append(question['correct_answer'])
 		random.shuffle(question['incorrect_answers'])
