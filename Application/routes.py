@@ -6,11 +6,11 @@ from flask_login import login_user, current_user, logout_user, login_required
 import os
 from flask_mail import Message
 import sys
-
+import random
+from Application.questions import get_questions
 @application.route('/')
 def home():
 	return render_template('/home.html', title='Trivia Game')
-
 
 @application.route('/register', methods=['GET', 'POST'])
 def register():
@@ -103,3 +103,24 @@ def reset_token(token):
 		flash('Password has been updated.', 'success')
 		return redirect(url_for('login'))
 	return render_template('reset_token.html', title='Reset Password', form=form)
+
+#Game code
+@application.route("/game")
+def game():
+	# Retrieves Questions from the API
+	questions = get_questions()
+	count = 0
+	wrong = False
+	# Game will continue to go until a wrong answer is given
+	while not wrong:
+		if count == len(questins):
+			questions = get_questions() 
+			count = 0
+			continue
+		question = questions[count]['question']
+		answer = questions[count]['correct_answer']
+		incorrect = questions[count]['incorrect_answers']
+		incorrect.append(answer)
+		choices = random.shuffle(incorrect)
+		render_template('game.html', title="Trivia Game")
+		count += 1

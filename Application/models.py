@@ -26,14 +26,16 @@ class User(db.Model, UserMixin):
 
 	def add_friend(self, user):
 		if not self.is_friends(user):
-			self.friends.append(user)
+			self.friend_list.append(user)
+			user.friend_list.append(self)
 
 	def remove_friend(self, user):
 		if self.is_friends(user):
-			self.friends.remove(user)
+			self.friend_list.remove(user)
+			user.friend_list.remove(self)
 
 	def is_friends(self, user):
-		return self.friend_list.filter(friends.c.self_id == user.id).count() > 0 
+		return self.friend_list.filter(friends.c.friend_id == user.id).count() > 0 
 
 	def get_reset_token(self, expires_sec=1800):
 		s = Serializer(application.config['SECRET_KEY'], expires_sec)
