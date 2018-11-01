@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<div>
+
+	<h2>Friend List</h2>
+	<button><img class="addFriendIcon" src="static/idk.png">Add Friend</button>
+	
+
+	<div class="friends">
+
+	<!-- Loop to iterate through games goes here -->
+	<!--------------------------------------------->
+		<img class="rounded-circle game-img" src="{{ friend.image_file }}">
+		<h2>{{ friend.username }}</h2>
+		<p>Games won: {{friend.games_won}}</p>
+	<!-- end of loop to go here -->
+
+	</div>
+
+
+	
+</div>
+
+{% endblock content %}
