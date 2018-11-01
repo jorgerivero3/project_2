@@ -3,7 +3,7 @@
 
 <div>
 	{% for i in range(questions|length) %}
-	<span id="{i}|string" hidden>
+	<span id={{i|string}} hidden>
 		{{ questions[i]['question']|safe }}<br>
 		{% for j in range(questions[i]['incorrect_answers']|length) %}
 			{% if questions[i]['incorrect_answers'][j] == questions[i]["correct_answer"] %}
@@ -13,26 +13,29 @@
 			{% endif %}
 		{% endfor %}
 		<br>
-	{% endfor %}
 	</span>
+	{% endfor %}
 </div>
 
 {% endblock content %}
 
 <script type="text/javascript">
 	<!--
-	var count = 0;
 	var ind = 0;
-	document.getElementById(ind.toString()).style.visibility = "visible"
+	document.getElementById(ind.toString()).removeAttribute("hidden");
 	function correct(){
-		count++;
-		window.alert(count + " correct wooo")
-		document.getElementById(ind.toString()).style.visibility = "hidden"
-		ind++
-		document.getElementById(ind.toString()).style.visibility = "visible"
+		document.getElementById(ind.toString()).hidden = true;
+		ind++;
+		if (document.getElementById(ind.toString()) == null){
+			window.alert("you got all right wtf")
+			//window.location = "http://127.0.0.1:5000/game/" +
+		}
+		else{
+			document.getElementById(ind.toString()).removeAttribute("hidden");
+		}
 	}
 	function incorrect(){
-		window.alert("you wrong")
+		window.alert('you wrong')
 	}
 	// -->
 </script>
