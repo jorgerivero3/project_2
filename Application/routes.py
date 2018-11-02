@@ -30,11 +30,7 @@ def register():
 @application.route('/login', methods=['GET', 'POST'])
 def login():
 	if current_user.is_authenticated:
-<<<<<<< HEAD
-		return redirect(url_for('game/0/0'))
-=======
-		return redirect(url_for('select'))
->>>>>>> 6b2f5c3b18dad34b9ba04f790d52858b67bc4f7b
+		return redirect(url_for('game/10'))
 	form = LoginForm()
 	if form.validate_on_submit():
 		user = User.query.filter_by(email=form.email.data).first()
