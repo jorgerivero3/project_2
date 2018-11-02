@@ -4,12 +4,14 @@
 <body style="text-align: center">
 	{% for i in range(questions|length) %}
 	<span id={{i|string}} hidden>
+		<br>
 		{{ questions[i]['question']|safe }}<br>
 		{% for j in range(questions[i]['incorrect_answers']|length) %}
+			<br>
 			{% if questions[i]['incorrect_answers'][j] == questions[i]["correct_answer"] %}
-				<button onclick="correct();">{{ questions[i]['incorrect_answers'][j]|safe }}</button>
+				<button style="height: 40px; margin-top: 15px;"; class="myButton" onclick="correct();">{{ questions[i]['incorrect_answers'][j]|safe }}</button><br>
 			{% else %}
-				<button onclick="incorrect();">{{ questions[i]['incorrect_answers'][j]|safe }}</button>
+				<button style="height: 40px; margin-top: 15px;"; class="myButton" onclick="incorrect();">{{ questions[i]['incorrect_answers'][j]|safe }}</button><br>
 			{% endif %}
 		{% endfor %}
 		<br>
