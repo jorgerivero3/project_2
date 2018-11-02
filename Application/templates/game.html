@@ -7,13 +7,15 @@
 		{{ questions[i]['question']|safe }}<br>
 		{% for j in range(questions[i]['incorrect_answers']|length) %}
 			{% if questions[i]['incorrect_answers'][j] == questions[i]["correct_answer"] %}
-				<button onclick="correct();">{{ questions[i]['incorrect_answers'][j]|safe }}</button>
+				<button onclick="correct();score_keeper();">{{ questions[i]['incorrect_answers'][j]|safe }}</button>
 			{% else %}
 				<button onclick="incorrect();">{{ questions[i]['incorrect_answers'][j]|safe }}</button>
 			{% endif %}
 		{% endfor %}
 		<br>
 	</span>
+	<div id='score'>
+	</div>
 	{% endfor %}
 </body>
 
@@ -22,6 +24,7 @@
 	var ind = 0;
 	var last = {{ correct }};
 	document.getElementById(ind.toString()).removeAttribute("hidden");
+	score_keeper();
 	function correct(){
 		document.getElementById(ind.toString()).hidden = true;
 		ind++;
@@ -61,6 +64,14 @@
 	function pass(){
 		window.location = window.location.href + '/' + ind.toString();
 	}
+    function score_keeper(){
+	    if (last == -1){
+	    	document.getElementById("score").innerHTML = ind.toString() + ' - 0';
+	    }
+	    else{
+	    	document.getElementById("score").innerHTML = last.toString() + ' - ' + ind.toString();
+	    }
+    }
 
 	// -->
 </script>
