@@ -6,7 +6,7 @@ from flask_login import current_user
 
 
 class RegistrationForm(FlaskForm):
-	username = StringField('Character Name', validators=[DataRequired(), Length(min=2, max=20)])
+	username = StringField('Username', validators=[DataRequired(), Length(min=2, max=20)])
 	email = StringField('Email', validators=[DataRequired(), Email()])
 	password = PasswordField('Password', validators=[DataRequired()])
 	confirm_password = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password')])
@@ -31,7 +31,7 @@ class LoginForm(FlaskForm): #do we want to change to login by username?
 		
 class RequestResetForm(FlaskForm):
 	email = StringField("Email", validators=[DataRequired(), Email()])
-	submit = SubmitField('Request password reset')
+	submit = SubmitField('Request Password Reset')
 
 	def validate_email(self, email):
 		user = User.query.filter_by(email=email.data).first()

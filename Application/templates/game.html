@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 {% block content %}
 
-<body>
+<body style="text-align: center">
 	{% for i in range(questions|length) %}
 	<span id={{i|string}} hidden>
 		{{ questions[i]['question']|safe }}<br>
