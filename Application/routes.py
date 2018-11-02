@@ -136,3 +136,7 @@ def game(number, correct):
 @application.route("/select")
 def select():
 	return render_template('select.html')
+
+@application.route("/game/<number>/<score1>/<score2>")
+def gameover(number, score1, score2):
+	return render_template('gameover.html', title="Gameover", score1=score1, score2=score2)
