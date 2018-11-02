@@ -30,14 +30,18 @@ def register():
 @application.route('/login', methods=['GET', 'POST'])
 def login():
 	if current_user.is_authenticated:
+<<<<<<< HEAD
 		return redirect(url_for('game/0/0'))
+=======
+		return redirect(url_for('select'))
+>>>>>>> 6b2f5c3b18dad34b9ba04f790d52858b67bc4f7b
 	form = LoginForm()
 	if form.validate_on_submit():
 		user = User.query.filter_by(email=form.email.data).first()
 		if user and bcrypt.check_password_hash(user.password, form.password.data):
 			login_user(user, remember=form.remember.data)
 			next_page = request.args.get('next')
-			return redirect(url_for('game'))
+			return redirect(url_for('select'))
 		else:
 			flash('Login unsuccessful. Email and/or password incorrect.')
 	return render_template('login.html', title='Login', form=form)
