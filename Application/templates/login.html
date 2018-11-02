@@ -1,0 +1,50 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<div style="text-align: center">
+  <h1>Login</h1>
+  <div class='theForm'>
+        <form method="POST" action="/login">
+            {{ form.hidden_tag() }}               
+                <div class="form-group">
+                    {% if form.email.errors %}
+                        {{ form.email(class="form-control form-control-lg is-invalid", placeholder='Email') }}
+                        <div class="invalid-feedback">
+                            {% for error in form.email.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.email(class="form-control form-control-lg", placeholder='Email') }}
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    {% if form.password.errors %}
+                        {{ form.password(class="form-control form-control-lg is-invalid", placeholder='Password') }}
+                        <div class="invalid-feedback">
+                            {% for error in form.password.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.password(class="form-control form-control-lg", placeholder='Password') }}
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    {{ form.remember.label }}
+                    {{ form.remember }}
+                </div>
+             <br> 
+            <div class="form-group">
+                {{ form.submit(class="myButton") }}
+            </div>
+        </form>
+    <p>Don't have an account? <a href="/register">Register</a><br>
+        <a href="{{ url_for('password_retrieval') }}">Forgot your password?</a><br><br>
+        <a href="/select">Continue as guest</a>
+    </p>
+   </div>    
+</div>
+
+
+{% endblock content %}

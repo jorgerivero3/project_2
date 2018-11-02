@@ -19,7 +19,7 @@ def register():
 	form = RegistrationForm()
 	if form.validate_on_submit():
 		hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
-		user = User(username=form.username.data, email=form.email.data, password=hashed_password)
+		user = User(username=form.username.data, email=form.email.data, password=hashed_password, games_won = 0)
 		db.session.add(user)
 		db.session.commit()
 		flash('Account creation succesful!', 'success')
@@ -105,16 +105,16 @@ def reset_token(token):
 	return render_template('reset_token.html', title='Reset Password', form=form)
 
 #Game code
-@application.route("/game", methods=['GET', 'POST'])
+@application.route("/game/<number>", defaults={'correct': -1})
+@application.route("/game/<number>/<correct>",)
 #@login_required
-def game():
+def game(number, correct):
 	# Retrieves Questions from the API
-	questions = get_questions() #array of dictionaries
+	questions = get_questions(number) #array of dictionaries
 	for question in questions:
 		question['incorrect_answers'].append(question['correct_answer'])
-		if len(question['incorrect_answers']) > 2: 
-			random.shuffle(question['incorrect_answers'])
-	return render_template('game.html', title='Quiz', questions=questions)
+		random.shuffle(question['incorrect_answers'])
+	return render_template('game.html', title='Quiz', questions=questions, correct=correct)
 	'''
 	count = 0
 	wrong = False
@@ -132,3 +132,11 @@ def game():
 		render_template('game.html', title="Trivia Game")
 		count += 1
 		'''
+
+@application.route("/select")
+def select():
+	return render_template('select.html')
+
+@application.route("/game/<number>/<score1>/<score2>")
+def gameover(number, score1, score2):
+	return render_template('gameover.html', title="Gameover", score1=score1, score2=score2)
