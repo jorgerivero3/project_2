@@ -1,8 +1,9 @@
-
+{% extends "layout.html" %}
 {% block content %}
 
-<div>
+<body style="text-align: center">
 	{% for i in range(questions|length) %}
+	<span id={{i|string}} hidden>
 		{{ questions[i]['question']|safe }}<br>
 		{% for j in range(questions[i]['incorrect_answers']|length) %}
 			{% if questions[i]['incorrect_answers'][j] == questions[i]["correct_answer"] %}
@@ -12,20 +13,55 @@
 			{% endif %}
 		{% endfor %}
 		<br>
+	</span>
 	{% endfor %}
-</div>
-
-{% endblock content %}
+</body>
 
 <script type="text/javascript">
 	<!--
-	var correct = 0;
+	var ind = 0;
+	var last = {{ correct }};
+	document.getElementById(ind.toString()).removeAttribute("hidden");
 	function correct(){
-		correct++
-		window.alert(correct + "correct")
+		document.getElementById(ind.toString()).hidden = true;
+		ind++;
+		if (document.getElementById(ind.toString()) == null){
+			if (last == -1){
+				window.alert("Pass device to player 2")
+				pass();
+			}
+			else{
+				check(last, ind);
+			}
+		}
+		else{
+			document.getElementById(ind.toString()).removeAttribute("hidden");
+		}
 	}
 	function incorrect(){
-		window.alert("you wrong")
+		if (last == -1){
+			window.alert("Pass device to Player 2")
+			pass();
+		}
+		else{
+			check(last, ind);
+		}
 	}
+	function check(play1, play2){
+		if (play1 > play2){
+			pass();
+		}
+		else if (play1 == play2){
+			pass();
+		}
+		else{
+			pass();
+		}
+	}
+	function pass(){
+		window.location = window.location.href + '/' + ind.toString();
+	}
+
 	// -->
 </script>
+{% endblock %}

@@ -1,0 +1,16 @@
+{% if not request.is_xhr %}{% extends "layout.html" %}{% endif -%}
+{% block content %}
+
+<body>
+    <br><br><br>
+    <h1>Trivia<br> Game</h1>
+
+    <div style="text-align:center;">
+        <br><br><br><br>
+        <a href="/login" class="myButton">Login</a><br><br>
+        <a href="/register" class="myButton">Register</a><br><br>
+        <a href="/select">Continue as guest</a>
+    </div>
+</body>
+
+{% endblock %}
