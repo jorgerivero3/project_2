@@ -112,7 +112,8 @@ def game():
 	questions = get_questions() #array of dictionaries
 	for question in questions:
 		question['incorrect_answers'].append(question['correct_answer'])
-		random.shuffle(question['incorrect_answers'])
+		if len(question['incorrect_answers']) > 2: 
+			random.shuffle(question['incorrect_answers'])
 	return render_template('game.html', title='Quiz', questions=questions)
 	'''
 	count = 0
