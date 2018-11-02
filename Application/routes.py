@@ -30,7 +30,7 @@ def register():
 @application.route('/login', methods=['GET', 'POST'])
 def login():
 	if current_user.is_authenticated:
-		return redirect(url_for('game'))
+		return redirect(url_for('game/0/0'))
 	form = LoginForm()
 	if form.validate_on_submit():
 		user = User.query.filter_by(email=form.email.data).first()
@@ -112,6 +112,7 @@ def game(number, correct):
 	# Retrieves Questions from the API
 	questions = get_questions(number) #array of dictionaries
 	for question in questions:
+
 		question['incorrect_answers'].append(question['correct_answer'])
 		random.shuffle(question['incorrect_answers'])
 	return render_template('game.html', title='Quiz', questions=questions, correct=correct)
