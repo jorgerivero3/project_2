@@ -2,22 +2,25 @@
 {% block content %}
 
 <body style="text-align: center">
-	{% for i in range(questions|length) %}
-	<span id={{i|string}} hidden>
+	<div id='scores'>
+		<p id="ply1">Player 1: <br> <span id="pl1sc">0</span></p>
+		<p id="ply2">Player 2: <br> <span id="pl2sc">0</span></p>
 		<br>
-		{{ questions[i]['question']|safe }}<br>
+	</div>
+	{% for i in range(questions|length) %}
+	<span style="color:white; font-weight: bold; font-size: 18px;" id={{i|string}} hidden>
+		<br>
+		{{ questions[i]['question']|safe }}<br><br><br>
 		{% for j in range(questions[i]['incorrect_answers']|length) %}
-			<br>
+		<br>
 			{% if questions[i]['incorrect_answers'][j] == questions[i]["correct_answer"] %}
-				<button style="height: 40px; margin-top: 15px;"; class="myButton" onclick="correct();score_keeper();">{{ questions[i]['incorrect_answers'][j]|safe }}</button><br>
+				<button style="position: relative; top: 50px; width: 200px; margin-top: 10px;"; class="myButton" onclick="correct();score_keeper();">{{ questions[i]['incorrect_answers'][j]|safe }}</button><br>
 			{% else %}
-				<button style="height: 40px; margin-top: 15px;"; class="myButton" onclick="incorrect();">{{ questions[i]['incorrect_answers'][j]|safe }}</button><br>
+				<button style="position: relative; top: 50px; width: 200px; margin-top: 10px;"; class="myButton" onclick="incorrect();">{{ questions[i]['incorrect_answers'][j]|safe }}</button><br>
 			{% endif %}
 		{% endfor %}
 		<br>
 	</span>
-	<div id='score'>
-	</div>
 	{% endfor %}
 </body>
 
@@ -68,10 +71,11 @@
 	}
     function score_keeper(){
 	    if (last == -1){
-	    	document.getElementById("score").innerHTML = ind.toString() + ' - 0';
+	    	document.getElementById("pl1sc").innerHTML = ind.toString();
 	    }
 	    else{
-	    	document.getElementById("score").innerHTML = last.toString() + ' - ' + ind.toString();
+	    	document.getElementById("pl1sc").innerHTML = last.toString();
+	    	document.getElementById("pl2sc").innerHTML = ind.toString();
 	    }
     }
 
