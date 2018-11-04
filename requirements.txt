@@ -10,11 +10,13 @@ Flask-Login==0.4.1
 Flask-Mail==0.9.1
 Flask-SQLAlchemy==2.3.2
 Flask-WTF==0.14.2
+heroku==0.1.4
 idna==2.7
 itsdangerous==1.1.0
 Jinja2==2.10
 MarkupSafe==1.0
 pycparser==2.19
+python-dateutil==1.5
 requests==2.20.0
 six==1.11.0
 SQLAlchemy==1.2.12
