@@ -37,7 +37,7 @@ def login():
 		if user and bcrypt.check_password_hash(user.password, form.password.data):
 			login_user(user, remember=form.remember.data)
 			next_page = request.args.get('next')
-			return redirect(url_for('select'))
+			return redirect(url_for('main'))
 		else:
 			flash('Login unsuccessful. Email and/or password incorrect.')
 	return render_template('login.html', title='Login', form=form)
@@ -133,6 +133,12 @@ def game(number, correct):
 		render_template('game.html', title="Trivia Game")
 		count += 1
 		'''
+@application.route("/player_menu")
+## Loads the player's page with the list of friends
+def player_menu():
+	return render_template("player_menu.html")
+
+
 
 @application.route("/select")
 def select():

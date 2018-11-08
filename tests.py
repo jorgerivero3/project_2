@@ -1,6 +1,6 @@
 import unittest
 from Application import application, db
-from Application.models import User, friends
+from Application.models import User, friends, Game, game_table
 
 class UserModel(unittest.TestCase):
 
@@ -31,4 +31,26 @@ class UserModel(unittest.TestCase):
 
 		u1.remove_friend(u2)
 		db.session.commit()
-		self.assertFalse(u1.is_friends(u2)) 
+		self.assertFalse(u1.is_friends(u2))
+
+	def test_new_game(self):
+		u1 = User(username="Player1", email="ayy@lmao.com", password="cat", games_won=0)
+		u2 = User(username="Player2", email="me@me.com", password="dog", games_won=0)
+		u3 = User(username="Player3", email="email@aol.com", password="12345")
+		db.session.add(u1)
+		db.session.add(u2)
+		db.session.commit()
+
+		game = Game(current_turn=u1.id, next_turn=u2.id)
+		game2 = Game(current_turn = u1.id, next_turn=u3.id)
+		db.session.add(game)
+		db.session.commit()
+		self.assertEqual(game.current_turn, u1.id)
+		self.assertEqual(game.next_turn, u2.id)
+		self.assertEqual(len(u1.games), 2)
+		game.switch_turns()
+		db.session.commit()
+		self.assertEqual(game.current_turn, u2.id)
+		self.assertEqual(game.next_turn, u1.id)
+
+
