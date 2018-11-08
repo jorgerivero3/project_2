@@ -1,13 +1,16 @@
 {% extends "layout.html" %}
 {% block content %}
 
-<div>
+<div align="center">
       <h1>Your Account</h1>
 
       <br><br>
-      <!---Friend list--->
-      
+      <!---Friend list either make it a separate page or on the same account page--->
+      <div>
+            <form method ="get" action = "/friendList"><button class ='myButton'>View Friends</button></form>
+      </div>
       <!---account info--->
+      <br><br>
       <p>Change Account Info</p>
 
       <form method="POST" action="" enctype="multipart/form-data">

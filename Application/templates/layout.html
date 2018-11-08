@@ -11,7 +11,30 @@
     <link rel="stylesheet" media="screen" href="{{url_for('static', filename='style.css') }}" type="text/css"/>
 </head>
 <body>
-    <div id="content">{% block content %}{% endblock %}</div>
+	<div class="navBar" align="right">
+		{%if current_user.is_authenticated %}
+			<a href="/select">Trivia!</a>
+			<a href="/account">Account</a>
+			<a href="/logout">Logout</a>
+		{% else %}
+			<a href="/select">Trivia!</a>
+			<a href="/login">Login</a>
+			<a href="/register">Register</a>
+		{% endif %}
+	</div>
+    <div id="content">
+    	{% with messages = get_flashed_messages(with_categories=true) %}
+			{% if messages %}
+				{% for catergory, message in messages %}
+					<div class = "alert alert-{{ category }}">
+						<p>{{ message }}</p>
+					</div>
+				{% endfor %}
+			{% endif %}
+		{% endwith %}
+
+    	{% block content %}{% endblock %}
+    </div>
 </body>
 
 </html>
