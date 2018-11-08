@@ -18,6 +18,7 @@ h1 {
  body {
      background-image: url(bg.jpg);
      background-position: center;
+     height: 600px;
  }
 
 #scores{
