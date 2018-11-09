@@ -116,29 +116,11 @@ def game(number, correct):
 		question['incorrect_answers'].append(question['correct_answer'])
 		random.shuffle(question['incorrect_answers'])
 	return render_template('game.html', title='Quiz', questions=questions, correct=correct)
-	'''
-	count = 0
-	wrong = False
-	# Game will continue to go until a wrong answer is given
-	while not wrong:
-		if count == len(questins):
-			questions = get_questions() 
-			count = 0
-			continue
-		question = questions[count]['question']
-		answer = questions[count]['correct_answer']
-		incorrect = questions[count]['incorrect_answers']
-		incorrect.append(answer)
-		choices = random.shuffle(incorrect)
-		render_template('game.html', title="Trivia Game")
-		count += 1
-		'''
+
 @application.route("/player_menu")
 ## Loads the player's page with the list of friends
 def player_menu():
 	return render_template("player_menu.html")
-
-
 
 @application.route("/select")
 def select():
@@ -147,3 +129,12 @@ def select():
 @application.route("/game/<number>/<score1>/<score2>")
 def gameover(number, score1, score2):
 	return render_template('gameover.html', title="Gameover", score1=score1, score2=score2)
+
+@application.route("/friend/<id>")
+@login_required
+def friendgame():
+	questions = get_questions("10")
+	for question in questions:
+		question['incorrect_answers'].append(question['correct_answer'])
+		random.shuffle(question['incorrect_answers'])
+	return render_template('friendgame.html', title='Quiz', questions=questions)
