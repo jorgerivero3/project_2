@@ -64,7 +64,7 @@ class AddFriend(FlaskForm):
 	username = StringField('Username', validators=[DataRequired()])
 	submit = SubmitField('Add Friend')
 
-	def validate_add(self, username):
+	def validate_username(self, username):
 		user = User.query.filter_by(username=username.data).first()
 		if user is None:
 			raise ValidationError("User does not exist.")
