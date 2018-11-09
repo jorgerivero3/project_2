@@ -28,48 +28,43 @@
 <script type="text/javascript">
 	<!--
 	var ind = 0;
+	var wrong = 0;
 	var last = {{ correct }};
 	document.getElementById(ind.toString()).removeAttribute("hidden");
 	score_keeper();
+
 	function correct(){
-		document.getElementById(ind.toString()).hidden = true;
+		document.getElementById((ind + wrong).toString()).hidden = true;
 		ind++;
-		if (document.getElementById(ind.toString()) == null){
+		next();
+	}
+
+	function incorrect(){
+		document.getElementById((ind + wrong).toString()).hidden = true;
+		wrong++;
+		next();
+	}
+
+	function next(){
+		if (document.getElementById((ind + wrong).toString()) == null){
 			if (last == -1){
-				window.alert("Pass device to player 2")
+				window.alert("You got " + ind.toString() + " / {{ questions|length }} \nPass device to player 2")
 				pass();
 			}
 			else{
-				check(last, ind);
+				pass();
 			}
 		}
 		else{
-			document.getElementById(ind.toString()).removeAttribute("hidden");
+			document.getElementById((ind + wrong).toString()).removeAttribute("hidden");
 		}
 	}
-	function incorrect(){
-		if (last == -1){
-			window.alert("Pass device to Player 2")
-			pass();
-		}
-		else{
-			check(last, ind);
-		}
-	}
-	function check(play1, play2){
-		if (play1 > play2){
-			pass();
-		}
-		else if (play1 == play2){
-			pass();
-		}
-		else{
-			pass();
-		}
-	}
+
+
 	function pass(){
 		window.location = window.location.href + '/' + ind.toString();
 	}
+
     function score_keeper(){
 	    if (last == -1){
 	    	document.getElementById("pl1sc").innerHTML = ind.toString();
