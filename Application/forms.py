@@ -15,7 +15,7 @@ class RegistrationForm(FlaskForm):
 	def validate_username(self, username):
 		user = User.query.filter_by(username=username.data).first()
 		if user:
-			raise ValidationError('Character Name Taken. Try again')
+			raise ValidationError('Username Taken. Try again')
 
 	def validate_email(self, email):
 		user = User.query.filter_by(email=email.data).first()
@@ -44,7 +44,7 @@ class ResetPasswordForm(FlaskForm):
 	submit = SubmitField('Reset Password')
 
 class UpdateInfo(FlaskForm):
-	username = StringField("Character Name: ", validators=[DataRequired()])
+	username = StringField("Username: ", validators=[DataRequired()])
 	email = StringField("Email: ", validators=[DataRequired(), Email()])
 	submit = SubmitField('Update Info')
 
@@ -52,11 +52,20 @@ class UpdateInfo(FlaskForm):
 		if username.data != current_user.username:
 			user = User.query.filter_by(username=username.data).first()
 			if user:
-				raise ValidationError('Character Name Taken')
+				raise ValidationError('Username Taken')
 
 	def validate_email(self, email):
 		if email.data != current_user.email:
 			user = User.query.filter_by(email=email.data).first()
 			if user:
 				raise ValidationError('Email taken')
+
+class AddFriend(FlaskForm):
+	username = StringField('Username', validators=[DataRequired()])
+	submit = SubmitField('Add Friend')
+
+	def validate_add(self, username):
+		user = User.query.filter_by(username=username.data).first()
+		if user is None:
+			raise ValidationError("User does not exist.")
 				

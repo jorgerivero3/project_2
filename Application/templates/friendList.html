@@ -3,7 +3,8 @@
 
 <div>
 	<h1>Friends List</h1>
-	<a href="" class="myButton" style="position: relative; margin-left: -100px; text-align: center; left: 50%;">Add Friend</a>
+	{{ form.username(class="form-control form-control-lg", placeholder="Username", style="position:relative; left:50%; margin-left: -77px;")}}<br>
+	{{ form.submit(class="myButton", style="position:relative; left:50%; margin-left: -80px;") }}
 
 	<div class="friends">
 	{% for friend in current_user.friend_list %}

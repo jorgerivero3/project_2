@@ -1,6 +1,6 @@
 from flask import render_template, url_for, flash, redirect, request
 from Application import application, db, bcrypt, mail
-from Application.forms import RegistrationForm, LoginForm, RequestResetForm, ResetPasswordForm, UpdateInfo
+from Application.forms import RegistrationForm, LoginForm, RequestResetForm, ResetPasswordForm, UpdateInfo, AddFriend
 from Application.models import User
 from flask_login import login_user, current_user, logout_user, login_required
 import os
@@ -107,7 +107,12 @@ def player_menu():
 @application.route("/friends")
 @login_required
 def friends():
-	return render_template("friendList.html", title="Friend's List")
+	form = AddFriend()
+	if form.validate_on_submit():
+		current_user.add_friend(form.username.data)
+		db.session.commit()
+		flash('Friend Added!', 'success')
+	return render_template("friendList.html", title="Friend's List", form=form)
 
 ######################
 ##### Game code ######
