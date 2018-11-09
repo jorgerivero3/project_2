@@ -29,7 +29,6 @@
 	<!--
 	var ind = 0;
 	var wrong = 0;
-	var last = {{ correct }};
 	document.getElementById(ind.toString()).removeAttribute("hidden");
 	score_keeper();
 
@@ -49,13 +48,8 @@
 	function next(){
 		document.getElementById((ind + wrong - 1).toString()).hidden = true;
 		if (document.getElementById((ind + wrong).toString()) == null){
-			if (last == -1){
-				window.alert("You got " + ind.toString() + " / {{ questions|length }} \nPass device to player 2")
-				pass();
-			}
-			else{
-				pass();
-			}
+			window.alert("You got " + ind.toString() + " / {{ questions|length }}")
+			pass();
 		}
 		else{
 			document.getElementById((ind + wrong).toString()).removeAttribute("hidden");
