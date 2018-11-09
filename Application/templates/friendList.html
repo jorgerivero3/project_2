@@ -2,24 +2,17 @@
 {% block content %}
 
 <div>
-
-	<h2>Friend List</h2>
-	<button><img class="addFriendIcon" src="static/idk.png">Add Friend</button>
-	
+	<h1>Friends List</h1>
+	<a href="" class="myButton" style="position: relative; margin-left: -100px; text-align: center; left: 50%;">Add Friend</a>
 
 	<div class="friends">
-
-	<!-- Loop to iterate through games goes here -->
-	<!--------------------------------------------->
+	{% for friend in current_user.friend_list %}
 		<img class="rounded-circle game-img" src="{{ friend.image_file }}">
-		<h2>{{ friend.username }}</h2>
+		{{ friend.username }}<br>
 		<p>Games won: {{friend.games_won}}</p>
 	<!-- end of loop to go here -->
-
+	{% endfor %}
 	</div>
-
-
-	
 </div>
 
 {% endblock content %}
