@@ -8,6 +8,8 @@ from flask_mail import Message
 import sys
 import random
 from Application.questions import get_questions
+
+
 @application.route('/')
 def home():
 	return render_template('/home.html', title='Trivia Game')
@@ -25,7 +27,6 @@ def register():
 		flash('Account creation succesful!', 'success')
 		return redirect(url_for('login'))
 	return render_template('register.html', title='Register', form=form)
-
 
 @application.route('/login', methods=['GET', 'POST'])
 def login():
@@ -57,12 +58,10 @@ def account():
 		form.email.data = current_user.email
 	return render_template('account.html', title='Account Information', form=form)
 
-
 @application.route('/logout')
 def logout():
 	logout_user()
 	return redirect(url_for('home'))
-
 
 @application.route("/password_retrieval", methods=['GET', 'POST'])
 def password_retrieval():
@@ -79,12 +78,7 @@ def password_retrieval():
 def send_reset_email(user):
 	token = user.get_reset_token()
 	msg = Message('Password Reset Request', sender='noreply@demo.com', recipients=[user.email])
-	msg.body = f''' To reset your password, click the following link, or copy and
-paste it into your web browser:
-{url_for('reset_token', token=token, _external=True)}
-
-If you did not make this request then please ignore this email.
-'''
+	msg.body = f''' To reset your password, click the following link, or copy and paste it into your web browser: {url_for('reset_token', token=token, _external=True)} If you did not make this request then please ignore this email.'''
 	mail.send(msg)
 
 @application.route("/reset_token/<token>", methods=['GET', 'POST'])
@@ -104,33 +98,40 @@ def reset_token(token):
 		return redirect(url_for('login'))
 	return render_template('reset_token.html', title='Reset Password', form=form)
 
-#Game code
-@application.route("/game/<number>", defaults={'correct': -1})
-@application.route("/game/<number>/<correct>",)
-#@login_required
-def game(number, correct):
-	# Retrieves Questions from the API
-	questions = get_questions(number) #array of dictionaries
-	for question in questions:
-
-		question['incorrect_answers'].append(question['correct_answer'])
-		random.shuffle(question['incorrect_answers'])
-	return render_template('game.html', title='Quiz', questions=questions, correct=correct)
-
 @application.route("/player_menu")
+@login_required
 ## Loads the player's page with the list of friends
 def player_menu():
 	return render_template("player_menu.html")
+
+@application.route("/friends")
+@login_required
+def friends():
+	return render_template("friendList.html", title="Friend's List")
+
+######################
+##### Game code ######
+######################
 
 @application.route("/select")
 def select():
 	return render_template('select.html')
 
+@application.route("/game/<number>", defaults={'correct': -1})
+@application.route("/game/<number>/<correct>",)
+def game(number, correct):
+	# Retrieves Questions from the API
+	questions = get_questions(number) #array of dictionaries
+	for question in questions:
+		question['incorrect_answers'].append(question['correct_answer'])
+		random.shuffle(question['incorrect_answers'])
+	return render_template('game.html', title='Quiz', questions=questions, correct=correct)
+
 @application.route("/game/<number>/<score1>/<score2>")
 def gameover(number, score1, score2):
 	return render_template('gameover.html', title="Gameover", score1=score1, score2=score2)
 
-@application.route("/friend/<id>")
+@application.route("/friends/<id>")
 @login_required
 def friendgame():
 	questions = get_questions("10")
