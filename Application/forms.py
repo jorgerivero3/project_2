@@ -68,4 +68,6 @@ class AddFriend(FlaskForm):
 		user = User.query.filter_by(username=username.data).first()
 		if user is None:
 			raise ValidationError("User does not exist.")
+		if current_user.id == user.id:
+			raise ValidationError("Cannot add yourself!")
 				

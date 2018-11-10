@@ -30,7 +30,7 @@ class User(db.Model, UserMixin):
 	games = db.relationship("Game", secondary=game_table, backref=db.backref('games', lazy='dynamic'))
 
 	def add_friend(self, user):
-		if not self.is_friends(user):
+		if not self.is_friends(user) and self.id != user.id:
 			self.friend_list.append(user)
 			user.friend_list.append(self)
 

@@ -15,7 +15,7 @@
 	{% for friend in current_user.friend_list %}
 		<img class="rounded-circle game-img" src="{{ friend.image_file }}">
 		{{ friend.username }}<br><br>
-		<a href="/create/{{friend.id}}" class="myButton">Start Game</a><br><br>
+		<a href="/create/{{friend.id}}" class="myButton">Start Game</a><br>
 		<p>Games won: {{friend.games_won}}<br><br></p>
 	<!-- end of loop to go here -->
 	{% endfor %}
