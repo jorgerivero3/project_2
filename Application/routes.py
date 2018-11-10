@@ -104,12 +104,13 @@ def reset_token(token):
 def player_menu():
 	return render_template("player_menu.html")
 
-@application.route("/friends")
+@application.route("/friends", methods=['GET', 'POST'])
 @login_required
 def friends():
 	form = AddFriend()
 	if form.validate_on_submit():
-		current_user.add_friend(form.username.data)
+		friend = User.query.get_or_404(id)
+		current_user.add_friend(friend)
 		db.session.commit()
 		flash('Friend Added!', 'success')
 	return render_template("friendList.html", title="Friend's List", form=form)
