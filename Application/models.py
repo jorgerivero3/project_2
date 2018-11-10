@@ -17,6 +17,7 @@ class Game(db.Model):
 	score1 = db.Column(db.Integer, unique=False, nullable=False, default=0)
 	player2 = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False) # need to take a look at this
 	score2 = db.Column(db.Integer, unique=False, nullable=False, default=0)
+	done = db.Column(db.Boolean, unique=False, nullable=False, default=False)
 	over = db.Column(db.Boolean, unique=False, nullable=False, default=False)
 
 class User(db.Model, UserMixin):

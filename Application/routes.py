@@ -122,7 +122,8 @@ def friends():
 @application.route("/create/<user>")
 @login_required
 def create(user): #creates game between players
-	game = Game(player1=current_user.id, player2=user.id)
+	friend = User.query.filter_by(username=form.username.data).first()
+	game = Game(player1=current_user.id, player2=friend.id)
 	db.session.add(game)
 	db.session.commit()
 	return redirect('/friends/' + string(game.id))
