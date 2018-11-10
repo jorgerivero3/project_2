@@ -13,7 +13,7 @@
     <link rel="stylesheet" media="screen" href="{{url_for('static', filename='style.css') }}" type="text/css"/>
 </head>
 <body>
-	<!---<div class="navBar">
+	<div class="navBar">
 		{% if current_user.is_authenticated %}
 			<div align="left" style="position: relative; top: 9px;">
 				<a href="/">Trivia!</a>
@@ -33,61 +33,22 @@
 			</div>
 			
 		{% endif %}
-	</div>--->
+	</div>
 
-		<div id="mySidenav" class="sidenav">
- 			<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
- 			{% if current_user.is_authenticated %}
-					<a href="/">Trivia!</a>
-					<a href="/friends">Friends</a>
-					<a href="/account">Account</a>
-					<a href="/logout">Logout</a>
-			{% else %}
-					<a href="/">Trivia!</a>
-					<a href="/login">Login</a>
-					<a href="/register">Register</a>
+
+	<div id="content" style="margin: 0 50px">
+	 	{% with messages = get_flashed_messages(with_categories=true) %}
+			{% if messages %}
+				{% for catergory, message in messages %}
+					<div class = "alert alert-{{ category }}">
+						<p>{{ message }}</p>
+					</div>
+				{% endfor %}
 			{% endif %}
-		</div>
+		{% endwith %}
+	</div>
 
-		<!-- Use any element to open the sidenav -->
-		<span onclick="openNav()">
-			<div class="container">
-			  <div class="bar1"></div>
-			  <div class="bar2"></div>
-			  <div class="bar3"></div>
-			</div> 
-		</span>
-
-		<script type="text/javascript"> 	
-			function openNav() {
-			    document.getElementById("mySidenav").style.width = "250px";
-			    document.getElementById("main").style.marginLeft = "250px";
-			    document.body.style.backgroundColor = "rgba(0,0,0,0.4)";
-			}
-
-			/* Set the width of the side navigation to 0 and the left margin of the page content to 0, and the background color of body to white */
-			function closeNav() {
-			    document.getElementById("mySidenav").style.width = "0";
-			    document.getElementById("main").style.marginLeft = "0";
-			    document.body.style.backgroundColor = "white";
-			}
-		</script>
-
-
-		<div id="content" style="margin: 0 50px">
-		 	{% with messages = get_flashed_messages(with_categories=true) %}
-				{% if messages %}
-					{% for catergory, message in messages %}
-						<div class = "alert alert-{{ category }}">
-							<p>{{ message }}</p>
-						</div>
-					{% endfor %}
-				{% endif %}
-			{% endwith %}
-		</div>
-
-    	{% block content %}{% endblock %}
-    </div>
+   	{% block content %}{% endblock %}
 </body>
 
 </html>
