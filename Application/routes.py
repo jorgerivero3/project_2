@@ -109,7 +109,7 @@ def player_menu():
 def friends():
 	form = AddFriend()
 	if form.validate_on_submit():
-		friend = User.query.get_or_404(id)
+		friend = User.query.filter_by(username=form.username.data).first()
 		current_user.add_friend(friend)
 		db.session.commit()
 		flash('Friend Added!', 'success')
