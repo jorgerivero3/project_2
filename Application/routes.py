@@ -136,6 +136,7 @@ def save(id, number):
 		game.score1 = number
 	else:
 		game.score2 = number
+		game.over = True
 	db.session.commit()
 	return redirect("/score/" + string(id))
 
