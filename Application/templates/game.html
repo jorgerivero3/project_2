@@ -34,15 +34,30 @@
 	score_keeper();
 
 	function check(event){
-		color();
-		setTimeout(uncolor, 3000)
-		setTimeout(next, 3700)
 		if (event.currentTarget.name == "correct"){
 			ind++
 			score_keeper();
 		}
 		else{
 			wrong++
+		}
+		disable();
+		color();
+		setTimeout(uncolor, 3000)
+		setTimeout(next, 3700)
+	}
+
+	function disable(){
+		var c = document.getElementsByTagName("button");
+		for (var i=0;i<c.length;i++){
+			c[i].disabled = true;
+		}
+	}
+
+	function enable(){
+		var d = document.getElementsByTagName("button");
+		for (var i=0;i<d.length;i++){
+			d[i].disabled = false;
 		}
 	}
 
@@ -60,6 +75,7 @@
 		else{
 			document.getElementById((ind + wrong).toString()).removeAttribute("hidden");
 		}
+		enable();
 	}
 
 	function color(){
