@@ -129,6 +129,8 @@ def active():
 def create(user): #creates game between players
 	friend = User.query.filter_by(id=user).first()
 	game = Game(player1=current_user.id, player2=friend.id)
+	current_user.games.append(game)
+	friend.games.append(game)
 	db.session.add(game)
 	db.session.commit()
 	return redirect('/friends/' + str(game.id))
