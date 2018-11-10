@@ -1,7 +1,7 @@
 from flask import render_template, url_for, flash, redirect, request
 from Application import application, db, bcrypt, mail
 from Application.forms import RegistrationForm, LoginForm, RequestResetForm, ResetPasswordForm, UpdateInfo, AddFriend
-from Application.models import User
+from Application.models import User, Game
 from flask_login import login_user, current_user, logout_user, login_required
 import os
 from flask_mail import Message
@@ -118,6 +118,39 @@ def friends():
 ##### Game code ######
 ######################
 
+@application.route("/create/<user>")
+@login_required
+def create(user): #creates game between players
+	game = Game(player1=current_user.id, player2=user.id)
+	db.session.add(game)
+	db.session.commit()
+	return redirect('/friends/' + string(game.id))
+
+@application.route("/friends/<id>/<number>")
+@login_required
+def save(id, number):
+	game = Game.query.get_or_404(id)
+	if current_user != game.player1 or current_user != game.player2:
+		abort(403)
+	if current_user == game.player1:
+		game.score1 = number
+	else:
+		game.score2 = number
+	db.session.commit()
+	return redirect("/score/" + string(id))
+
+@application.route("/score/<id>")
+@login_required
+def score(id):
+	game = Game.query.get_or_404(id)
+	if current_user != game.player1 or current_user != game.player2:
+		abort(403)
+	if game.over:
+		text = 'Waiting for other player'
+	else:
+		text = 'Gameover'
+	return render_template('gameover.html', text=text, game=game)
+
 @application.route("/select")
 def select():
 	return render_template('select.html')
@@ -138,7 +171,7 @@ def gameover(number, score1, score2):
 
 @application.route("/friends/<id>")
 @login_required
-def friendgame():
+def friendgame(id):
 	questions = get_questions("10")
 	for question in questions:
 		question['incorrect_answers'].append(question['correct_answer'])

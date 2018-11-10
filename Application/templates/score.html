@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<body>
+	<br><br><br>
+	<div style="text-align: center;">
+	{% if game.over == true %}
+	<h1>Game Over</h1>
+	{% else %}
+	<h1>Waiting for other player...</h1>
+	{% endif %}
+
+	<h1>{{ game.score1 }} - {{ game.score2 }}</h1>
+
+	{% if game.over == true %}
+		{% if game.score1 > game.score2 %}
+			<h1>Player 1 wins!</h1>
+		{% elif game.score1 == game.score2 %}
+			<h1>Tie Game<h1>
+		{% else %}
+			<h1>Player 2 wins!</h1>
+		{% endif %}
+	{% endif %}
+		<br><br>
+		<a href="/select" class="myButton">Play Again</a>
+
+	</div>
+
+</body>
+
+{% endblock content %}
