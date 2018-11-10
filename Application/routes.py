@@ -1,4 +1,4 @@
-from flask import render_template, url_for, flash, redirect, request
+from flask import render_template, url_for, flash, redirect, request, abort
 from Application import application, db, bcrypt, mail
 from Application.forms import RegistrationForm, LoginForm, RequestResetForm, ResetPasswordForm, UpdateInfo, AddFriend
 from Application.models import User, Game
@@ -115,6 +115,11 @@ def friends():
 		flash('Friend Added!', 'success')
 	return render_template("friendList.html", title="Friend's List", form=form)
 
+@application.route('/active')
+@login_required
+def active():
+	return render_template('active.html', title="Active Games")
+
 ######################
 ##### Game code ######
 ######################
@@ -122,25 +127,26 @@ def friends():
 @application.route("/create/<user>")
 @login_required
 def create(user): #creates game between players
-	friend = User.query.filter_by(username=form.username.data).first()
+	friend = User.query.filter_by(id=user).first()
 	game = Game(player1=current_user.id, player2=friend.id)
 	db.session.add(game)
 	db.session.commit()
-	return redirect('/friends/' + string(game.id))
+	return redirect('/friends/' + str(game.id))
 
 @application.route("/friends/<id>/<number>")
 @login_required
 def save(id, number):
 	game = Game.query.get_or_404(id)
-	if current_user != game.player1 or current_user != game.player2:
+	if current_user.id != game.player1 or current_user.id != game.player2:
 		abort(403)
-	if current_user == game.player1:
+	if current_user.id == game.player1:
 		game.score1 = number
+		game.done = True
 	else:
 		game.score2 = number
 		game.over = True
 	db.session.commit()
-	return redirect("/score/" + string(id))
+	return redirect("/score/" + str(id))
 
 @application.route("/score/<id>")
 @login_required
@@ -172,10 +178,10 @@ def gameover(number, score1, score2):
 @login_required
 def friendgame(id):
 	game = Game.query.get_or_404(id)
-	if current_user != game.player1 or current_user != game.player2:
+	if current_user.id != game.player1 or current_user.id != game.player2:
 		abort(403)
 	questions = get_questions("10")
 	for question in questions:
 		question['incorrect_answers'].append(question['correct_answer'])
 		random.shuffle(question['incorrect_answers'])
-	return render_template('friendgame.html', title='Quiz', questions=questions)
+	return render_template('friendgame.html', title='Quiz', questions=questions, game=game)

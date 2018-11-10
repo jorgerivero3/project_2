@@ -83,13 +83,12 @@
 	}
 
     function score_keeper(){
-	    if (last == -1){
-	    	document.getElementById("pl1sc").innerHTML = ind.toString();
-	    }
-	    else{
-	    	document.getElementById("pl1sc").innerHTML = last.toString();
-	    	document.getElementById("pl2sc").innerHTML = ind.toString();
-	    }
+	    {% if game.done==true %}
+	    	document.getElementById("pl1sc").innerHTML = {{ game.score1 }};
+	    	document.getElementById("pl2sc").innerHTML = ind;
+	    {% else %}
+	    	document.getElementById("pl1sc").innerHTML = ind;
+	    {% endif %}
     }
 	// -->
 </script>

@@ -15,10 +15,10 @@
 <body>
 	<div class="navBar">
 		{% if current_user.is_authenticated %}
-			<div align="left">
+			<div align="left" style="position: relative; top: 9px;">
 				<a href="/">Trivia!</a>
 			</div>
-			<div align="right">
+			<div align="right" style="position: relative; top: -10px;">
 				<a href="/account">Account</a>
 				<a href="/logout">Logout</a>
 			</div>
