@@ -14,11 +14,11 @@
 
 	{% if game.over == true %}
 		{% if game.score1 > game.score2 %}
-			<h1>Player 1 wins!</h1>
+			<h1>{{ User.query.filter_by(id=game.player1).first().username }} wins!</h1>
 		{% elif game.score1 == game.score2 %}
 			<h1>Tie Game<h1>
 		{% else %}
-			<h1>Player 2 wins!</h1>
+			<h1>You win!</h1>
 		{% endif %}
 	{% endif %}
 		<br><br>

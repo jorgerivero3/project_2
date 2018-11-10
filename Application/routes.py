@@ -118,7 +118,7 @@ def friends():
 @application.route('/active')
 @login_required
 def active():
-	return render_template('active.html', title="Active Games")
+	return render_template('active.html', title="Active Games", User=User)
 
 ######################
 ##### Game code ######
