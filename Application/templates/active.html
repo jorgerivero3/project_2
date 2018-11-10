@@ -5,7 +5,11 @@
 	<h1>Active Games</h1>
 	<div class="games">
 	{% for game in current_user.games %}
-		{% if game.done==true and game.over==false %}
+		{{ game.id }}
+		{% if current_user == game.player1 and game.done == False %}
+			{{ game.player2.username }}<br><br>
+			<a href="/friends/{{game.id}}">Play!</a><br><br>
+		{% elif current_user == game.player2 and game.over == False %}
 			{{ game.player1.username }}<br><br>
 			<a href="/friends/{{game.id}}">Play!</a><br><br>
 		{% endif %}

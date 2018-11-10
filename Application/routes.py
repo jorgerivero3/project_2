@@ -152,7 +152,7 @@ def save(id, number):
 @login_required
 def score(id):
 	game = Game.query.get_or_404(id)
-	if current_user != game.player1 and current_user != game.player2:
+	if current_user.id != game.player1 and current_user.id != game.player2:
 		abort(403)
 	return render_template('score.html', title="score", game=game)
 
