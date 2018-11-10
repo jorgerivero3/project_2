@@ -145,11 +145,7 @@ def score(id):
 	game = Game.query.get_or_404(id)
 	if current_user != game.player1 or current_user != game.player2:
 		abort(403)
-	if game.over:
-		text = 'Waiting for other player'
-	else:
-		text = 'Gameover'
-	return render_template('gameover.html', text=text, game=game)
+	return render_template('score.html', title="score", game=game)
 
 @application.route("/select")
 def select():
@@ -172,6 +168,9 @@ def gameover(number, score1, score2):
 @application.route("/friends/<id>")
 @login_required
 def friendgame(id):
+	game = Game.query.get_or_404(id)
+	if current_user != game.player1 or current_user != game.player2:
+		abort(403)
 	questions = get_questions("10")
 	for question in questions:
 		question['incorrect_answers'].append(question['correct_answer'])
