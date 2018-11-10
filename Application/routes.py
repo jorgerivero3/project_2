@@ -137,7 +137,7 @@ def create(user): #creates game between players
 @login_required
 def save(id, number):
 	game = Game.query.get_or_404(id)
-	if current_user.id != game.player1 or current_user.id != game.player2:
+	if current_user.id != game.player1 and current_user.id != game.player2:
 		abort(403)
 	if current_user.id == game.player1:
 		game.score1 = number
@@ -152,7 +152,7 @@ def save(id, number):
 @login_required
 def score(id):
 	game = Game.query.get_or_404(id)
-	if current_user != game.player1 or current_user != game.player2:
+	if current_user != game.player1 and current_user != game.player2:
 		abort(403)
 	return render_template('score.html', title="score", game=game)
 
@@ -178,7 +178,7 @@ def gameover(number, score1, score2):
 @login_required
 def friendgame(id):
 	game = Game.query.get_or_404(id)
-	if current_user.id != game.player1 or current_user.id != game.player2:
+	if current_user.id != game.player1 and current_user.id != game.player2:
 		abort(403)
 	questions = get_questions("10")
 	for question in questions:
