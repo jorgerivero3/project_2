@@ -28,7 +28,7 @@ h1 {
     font-size: 12px;
  }
  body {
-     background-image: url(bg.jpg);
+     background-image: url(repbg.png);
      background-position: center;
      height: 600px;
  }
@@ -103,17 +103,17 @@ h1 {
 }
 
 .navBar {
-  border: 1px solid darkgray;
+  border: 1px solid #333333;
   transition: 0.9s ease;
   overflow: hidden;
-  background-color: darkgray;
+  background-color: #333333;
   padding: 15px 25px;
   font-family: 'HankenBook';
   font-size: 15px;
 }
 
 .navBar a {
-  color: #333333;
+  color: whitesmoke;
   padding: 14px 16px;
   text-decoration: none;
   font-size: 17px;
