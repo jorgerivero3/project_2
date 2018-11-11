@@ -2,7 +2,7 @@
 {% block content %}
 
 <div>
-	<h1>Friends List</h1>
+	<h1 style="color: #333333;">Friends List</h1>
 	<div class="theForm">
 		<form method="POST" action="/friends">
 			{{ form.hidden_tag() }}
@@ -11,7 +11,7 @@
 		</form>
 	</div>
 
-	<div class="friends">
+	<div class="friends" style="color: #333333;">
 	{% for friend in current_user.friend_list %}
 		<img class="rounded-circle game-img" src="{{ friend.image_file }}">
 		{{ friend.username }}<br><br>

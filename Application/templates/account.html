@@ -2,7 +2,7 @@
 {% block content %}
 
 <div align="center">
-      <h1>Your Account</h1>
+      <h1 style="color: #333333;">Your Account</h1>
 
       <br><br>
       <!---Friend list either make it a separate page or on the same account page--->
@@ -12,13 +12,12 @@
       </div>
       <!---account info--->
       <br><br>
-      <p>Change Account Info</p>
+      <p style="color: #333333;">Change Account Info</p>
 
       <form method="POST" action="" enctype="multipart/form-data">
             {{ form.hidden_tag() }}
                 <div class="form-group">
-                    {{ form.username.label(class="form-control-label") }}
-
+                    {{ form.username.label(class="form-control-label", style="color=#333333;") }}
                     {% if form.username.errors %}
                         {{ form.username(class="form-control form-control-lg is-invalid") }}
                         <div class="invalid-feedback">
