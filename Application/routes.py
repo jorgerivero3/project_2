@@ -120,21 +120,7 @@ def reset_token(token):
 ######################
 
 
-<<<<<<< HEAD
 ##### LOCAL GAMES #####
-=======
-@application.route("/score/<id>")
-@login_required
-def score(id):
-	game = Game.query.get_or_404(id)
-	if current_user.id != game.player1 and current_user.id != game.player2:
-		abort(403)
-	if game.score1 > game.score2:
-		User.query.filter_by(id=game.player1).first().games_won += 1
-	else:
-		User.query.filter_by(id=game.player2).first().games_won += 1
-	return render_template('score.html', title="score", game=game, User=User)
->>>>>>> 3670adb90ce6fdbc852feb1279670f1e9116cb1b
 
 @application.route("/select") # select the number of questions (local only)
 def select():
