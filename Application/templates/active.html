@@ -8,7 +8,7 @@
 		{% if current_user.id == game.player1 and game.done == false %}
 			Game with: {{ User.query.filter_by(id=game.player2).first().username }}<br><br>
 			<a href="/friends/{{game.id}}" class="myButton">Play!</a><br><br>
-		{% elif current_user.id == game.player2 and game.over == false %}
+		{% elif current_user.id == game.player2 and game.over == false and game.done == true %}
 			Game with: {{ User.query.filter_by(id=game.player1).first().username }}<br><br>
 			<a href="/friends/{{game.id}}" class="myButton">Play!</a><br><br>
 		{% endif %}
