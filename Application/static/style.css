@@ -40,7 +40,7 @@ h1 {
 	top: 90px;
 }
 #scores p{
-	color: white;
+	color: #333333;
 	font-size: 20px;
 }
 #scores #ply1{
@@ -99,7 +99,7 @@ h1 {
 .theForm {
   font-family: 'HankenBook';
   font-size: 12px;
-  color: white;
+  color: #333333;
 }
 
 .navBar {
