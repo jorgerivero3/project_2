@@ -44,7 +44,7 @@
 				{% if current_user.id == game.player2 %}
 					Winner: You<br><br>
 				{% else %}
-					Winner: {{ User.query.filter_by(id=game.player1).first().username }}<br><br>
+					Winner: {{ User.query.filter_by(id=game.player2).first().username }}<br><br>
 				{% endif %}
 			{% endif %}
 		{% endif %}
