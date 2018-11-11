@@ -3,7 +3,7 @@
 
 <div>
 	<h1>Active Games</h1>
-	<div class="games">
+	<div class="future">
 	{% for game in current_user.games %}
 		{% if current_user.id == game.player1 and game.done == false %}
 			Game with: {{ User.query.filter_by(id=game.player2).first().username }}<br><br>
@@ -11,6 +11,42 @@
 		{% elif current_user.id == game.player2 and game.over == false %}
 			Game with: {{ User.query.filter_by(id=game.player1).first().username }}<br><br>
 			<a href="/friends/{{game.id}}" class="myButton">Play!</a><br><br>
+		{% endif %}
+	{% endfor %}
+	</div>
+	<h1>In Progress</h1>
+	<div class="present">
+	{% for game in current_user.games %}
+		{% if current_user.id == game.player1 and game.done == true and game.over == false %}
+			Game with: {{ User.query.filter_by(id=game.player2).first().username }}<br><br>
+			Your score: {{ game.score1 }}
+		{% endif %}
+	{% endfor %}
+	</div>
+	<h1>Recently Finished</h1>
+	<div class="past">
+	{% for game in current_user.games %}
+		{% if game.over == true and game.done == true %}
+			{% if current_user.id == game.player1 %}
+				Game with: {{ User.query.filter_by(id=game.player2).first().username }}<br>
+			{% else %}
+				Game with: {{ User.query.filter_by(id=game.player1).first().username }}<br>
+			{% endif %}
+			{% if game.score1 > game.score2 %}
+				{% if current_user.id == game.player1 %}
+					Winner: You<br><br>
+				{% else %}
+					Winner: {{ User.query.filter_by(id=game.player2).first().username }}<br><br>
+				{% endif %}
+			{% elif game.score1 == game.score2 %}
+				Tie Game!
+			{% else %}
+				{% if current_user.id == game.player2 %}
+					Winner: You<br><br>
+				{% else %}
+					Winner: {{ User.query.filter_by(id=game.player1).first().username }}<br><br>
+				{% endif %}
+			{% endif %}
 		{% endif %}
 	{% endfor %}
 	</div>
