@@ -177,6 +177,10 @@ def save(id, number): # saves the score of a player to the game
 	else: # update game score
 		game.score2 = number
 		game.over = True
+		if int(game.score1) > int(game.score2):
+			User.query.filter_by(id=game.player1).first().games_won += 1
+		elif int(game.score1) < int(game.score2):
+			User.query.filter_by(id=game.player2).first().games_won += 1
 	db.session.commit()
 	return redirect("/score/" + str(id)) # displays scores after done saving
 
@@ -186,8 +190,4 @@ def score(id): # page that displays scores. If haven't played, default=0
 	game = Game.query.get_or_404(id)
 	if current_user.id != game.player1 and current_user.id != game.player2:
 		abort(403)
-	if game.score1 > game.score2: # on loading updates players' total wins
-		User.query.filter_by(id=game.player1).first().games_won += 1
-	else:
-		User.query.filter_by(id=game.player2).first().games_won += 1
 	return render_template('score.html', title="score", game=game, User=User)
