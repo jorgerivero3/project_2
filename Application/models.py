@@ -1,8 +1,9 @@
 from Application import db, login_manager, application
-from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from flask_login import UserMixin
+from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 
-@login_manager.user_loader
+
+@login_manager.user_loader # loads in user
 def load_user(user_id):
 	return User.query.get(int(user_id))
 
@@ -29,20 +30,20 @@ class User(db.Model, UserMixin):
 	friend_list = db.relationship("User", secondary=friends, primaryjoin = (friends.c.self_id == id), secondaryjoin = (friends.c.friend_id == id), backref= db.backref('friends', lazy='dynamic'), lazy='dynamic')
 	games = db.relationship("Game", secondary=game_table, backref=db.backref('games', lazy='dynamic'))
 
-	def add_friend(self, user):
+	def add_friend(self, user): # allows user to add a friend and updates db
 		if not self.is_friends(user) and self.id != user.id:
 			self.friend_list.append(user)
 			user.friend_list.append(self)
 
-	def is_friends(self, user):
+	def is_friends(self, user): # checks if users are already friends
 		return self.friend_list.filter(friends.c.friend_id == user.id).count() > 0 
 
-	def get_reset_token(self, expires_sec=1800):
+	def get_reset_token(self, expires_sec=1800): # for resetting password
 		s = Serializer(application.config['SECRET_KEY'], expires_sec)
 		return s.dumps({'user_id': self.id}).decode('utf-8')
 
 	@staticmethod
-	def verify_reset_token(token):
+	def verify_reset_token(token): # verifies correct token for reset password
 		s = Serializer(application.config['SECRET_KEY'])
 		try:
 			user_id = s.loads(token)['user_id']
@@ -52,6 +53,3 @@ class User(db.Model, UserMixin):
 
 	def __repr__(self):
 		return f"User('{self.username}'')"
-
-
-
