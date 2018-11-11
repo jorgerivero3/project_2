@@ -11,13 +11,13 @@
 		</form>
 	</div>
 
-	<div class="friends" style="color: #333333;">
+	<div class="friends" style="position: relative; top: 20px;">
 	{% for friend in current_user.friend_list %}
-		<img class="rounded-circle game-img" src="{{ friend.image_file }}">
-		{{ friend.username }}<br><br>
-		<a href="/create/{{friend.id}}" class="myButton">Start Game</a><br>
-		<p>Games won: {{friend.games_won}}<br><br></p>
-	<!-- end of loop to go here -->
+		<div class="block" style="position:relative; left:50%; margin-left:-104px; margin-top:10px; background-color:#333333; -moz-border-radius:3px; -webkit-border-radius:3px; border-radius:3px; display:inline-block; color:white; font-size:12px;font-weight:bold;padding:7px 24px;text-decoration:none;width:150px;transition: 1s ease;">
+			{{ friend.username }}<br>
+			Games won: {{friend.games_won}}<br>
+			<a href="/create/{{friend.id}}" class="myButton" style="position: relative; top: 10px;text-align: center; width: 100px;">Start Game</a><br><br>
+		</div><br>
 	{% endfor %}
 	</div>
 </div>
