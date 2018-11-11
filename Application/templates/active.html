@@ -9,12 +9,12 @@
 			<div style="position:relative; left:50%; margin-left:-99px; margin-top:10px; background-color:#333333; -moz-border-radius:3px; -webkit-border-radius:3px; border-radius:3px; display:inline-block; color:white; font-size:12px;font-weight:bold;padding:7px 24px;text-decoration:none;width:150px;transition: 1s ease;">
 				Game with: {{ User.query.filter_by(id=game.player2).first().username }}<br><br>
 				<a href="/friends/{{game.id}}" class="myButton" style="text-align: center; width: 101px;">Play!</a><br><br>
-			</div>
+			</div><br>
 		{% elif current_user.id == game.player2 and game.over == false and game.done == true %}
 			<div style="position:relative; left:50%; margin-left:-104px; margin-top:10px; background-color:#333333; -moz-border-radius:3px; -webkit-border-radius:3px; border-radius:3px; display:inline-block; color:white; font-size:12px;font-weight:bold;padding:7px 24px;text-decoration:none;width:150px;transition: 1s ease;">
 			Game with: {{ User.query.filter_by(id=game.player1).first().username }}<br><br>
 			<a href="/friends/{{game.id}}" class="myButton" style="text-align: center; width: 101px;">Play!</a><br><br>
-			</div>
+			</div><br>
 		{% endif %}
 	{% endfor %}
 	</div>
@@ -25,7 +25,7 @@
 			<div style="position:relative; left:50%; margin-left:-104px; margin-top:10px; background-color:#333333; -moz-border-radius:3px; -webkit-border-radius:3px; border-radius:3px; display:inline-block; color:white; font-size:12px;font-weight:bold;padding:7px 24px;text-decoration:none;width:150px;transition: 1s ease;">	
 				Game with: {{ User.query.filter_by(id=game.player2).first().username }}<br><br>
 				Your score: {{ game.score1 }}<br>
-			</div>
+			</div><br>
 		{% endif %}
 	{% endfor %}
 	</div>
@@ -42,17 +42,17 @@
 			{% endif %}
 			{% if game.score1 > game.score2 %}
 				{% if current_user.id == game.player1 %}
-					Winner: You<br></div>
+					Winner: You<br></div><br>
 				{% else %}
-					Winner: {{ User.query.filter_by(id=game.player2).first().username }}<br><br></div>
+					Winner: {{ User.query.filter_by(id=game.player2).first().username }}<br><br></div><br>
 				{% endif %}
 			{% elif game.score1 == game.score2 %}
-				Tie Game!<br></div>
+				Tie Game!<br></div><br>
 			{% else %}
 				{% if current_user.id == game.player2 %}
-					Winner: You<br></div>
+					Winner: You<br></div><br>
 				{% else %}
-					Winner: {{ User.query.filter_by(id=game.player2).first().username }}<br></div>
+					Winner: {{ User.query.filter_by(id=game.player2).first().username }}<br></div><br>
 				{% endif %}
 			{% endif %}
 		{% endif %}
